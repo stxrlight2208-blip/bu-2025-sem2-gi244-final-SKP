@@ -1,18 +1,27 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target;   // µ—« Sphere
+    public Transform target;
     public Vector3 offset = new Vector3(0, 5, -8);
-    public float smoothSpeed = 5f;
+    public float smoothTime = 0.2f;
+
+    private Vector3 velocity = Vector3.zero;
 
     void LateUpdate()
     {
         if (target == null) return;
 
         Vector3 desiredPosition = target.position + offset;
-        transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
 
-        transform.LookAt(target); // „ÀÈ°≈ÈÕß¡Õß∫Õ≈
+        // ‡πÉ‡∏ä‡πâ SmoothDamp ‡πÅ‡∏ó‡∏ô Lerp (‡∏ô‡∏¥‡πà‡∏á‡∏Å‡∏ß‡πà‡∏≤)
+        transform.position = Vector3.SmoothDamp(
+            transform.position,
+            desiredPosition,
+            ref velocity,
+            smoothTime
+        );
+
+        transform.LookAt(target);
     }
 }
