@@ -1,26 +1,16 @@
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
-    public GameObject winUI; // ลาก Panel หรือ Text ของ UI Win มาที่นี่
-
-    private void Start()
+    void OnCollisionEnter(Collision collision)
     {
-        if (winUI != null)
-            winUI.SetActive(false); // ซ่อน UI ตอนเริ่มเกม
-    }
+        Debug.Log("Hit: " + collision.gameObject.name);
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("You Win!");
-
-            if (winUI != null)
-            {
-                winUI.SetActive(true); // แสดง UI Win
-            }
+            Debug.Log("WIN!");
+            SceneManager.LoadScene("Win");
         }
     }
 }

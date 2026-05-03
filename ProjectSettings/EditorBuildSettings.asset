@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Lv.1.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/Scenes/Win.unity
+    guid: fee4a6c6908be2a4594257a0d09a9c4c
+  - enabled: 0
     path: Assets/Scenes/End Credits.unity
     guid: dfd1393cf6273c644aab33c58e00a214
   m_configObjects:
