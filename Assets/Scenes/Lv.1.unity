@@ -6205,7 +6205,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.8, y: 0.33, z: 120.3}
-  m_LocalScale: {x: 60.184345, y: 0.49276075, z: 4.5448}
+  m_LocalScale: {x: 60.184345, y: 0.49276075, z: 6.3672647}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -6855,7 +6855,7 @@ Transform:
   m_GameObject: {fileID: 595446408}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.1, y: 0.06, z: 114.88}
+  m_LocalPosition: {x: -10.1, y: 0.06, z: 114.72}
   m_LocalScale: {x: 8.966775, y: 0.33787003, z: 3.3619885}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14754,8 +14754,8 @@ Transform:
   m_GameObject: {fileID: 1433372748}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.8, y: 0.33, z: 185}
-  m_LocalScale: {x: 60.184345, y: 0.49276075, z: 4.5448}
+  m_LocalPosition: {x: 1.8, y: 0.33, z: 185.74}
+  m_LocalScale: {x: 60.184345, y: 0.49276075, z: 7.9606714}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -18147,7 +18147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveForce: 2.5
-  jumpForce: 5
+  jumpForce: 3.5
   isConfused: 0
 --- !u!54 &1693825567
 Rigidbody:
