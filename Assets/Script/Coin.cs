@@ -1,19 +1,46 @@
-using UnityEngine;
+๏ปฟusing UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    public int coinValue = 1; // มูลค่าของเหรียญนี้ (เพิ่มคะแนนเท่าไหร่)
+    public int coinValue = 1;
 
-    // ฟังก์ชันนี้จะทำงานอัตโนมัติเมื่อมี Object อื่นเดินชน (และเหรียญเปิด Is Trigger ไว้)
+    public float moveSpeed = 10f;
+
+    private Transform player;
+
+    void Start()
+    {
+        player =
+            GameObject.FindGameObjectWithTag("Player")
+            .transform;
+    }
+
+    void Update()
+    {
+        float distance =
+            Vector3.Distance(
+                transform.position,
+                player.position
+            );
+
+        // เธ–เนเธฒเน€เธเนเธฒเนเธเธฅเนเธเนเธญเธขเธ”เธนเธ”
+        if (distance < 5f)
+        {
+            transform.position =
+                Vector3.MoveTowards(
+                    transform.position,
+                    player.position,
+                    moveSpeed * Time.deltaTime
+                );
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        // ตรวจสอบว่า Object ที่ชนมี Tag เป็น "Player" หรือไม่
         if (other.CompareTag("Player"))
         {
-            // เรียกฟังก์ชันเพิ่มคะแนนใน ScoreManager
             ScoreManager.instance.AddScore(coinValue);
 
-            // ทำลายเหรียญทิ้ง (เหรียญหายไปจากฉาก)
             Destroy(gameObject);
         }
     }
