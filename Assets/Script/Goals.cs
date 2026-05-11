@@ -10,6 +10,14 @@ public class Goal : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("WIN!");
+
+            // เซฟคะแนน
+            PlayerPrefs.SetInt(
+                "FinalScore",
+                ScoreManager.instance.score
+            );
+
+            // ไปหน้า Win
             SceneManager.LoadScene("Win");
         }
     }

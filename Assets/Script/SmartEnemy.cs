@@ -5,14 +5,28 @@ public class SmartEnemy : MonoBehaviour
 {
     public Transform player;
 
+    private PlayerInvisible playerSkill;
+
     public float speed = 3f;
 
     // ระยะที่เริ่มไล่
     public float chaseDistance = 5f;
 
+    void Start()
+    {
+        // หา Script ล่องหนจาก Player
+        playerSkill = player.GetComponent<PlayerInvisible>();
+    }
+
     void Update()
     {
         if (player == null) return;
+
+        // ถ้าผู้เล่นล่องหน Enemy จะไม่ไล่
+        if (playerSkill != null && playerSkill.isInvisible)
+        {
+            return;
+        }
 
         // วัดระยะ
         float distance =
