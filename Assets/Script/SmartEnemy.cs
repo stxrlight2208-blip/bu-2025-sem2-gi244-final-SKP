@@ -1,76 +1,53 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SmartEnemy : MonoBehaviour
 {
     public Transform player;
+
     public float speed = 3f;
-    public float detectRange = 5f;
 
-    public Transform groundCheck;
-    public float groundDistance = 0.5f;
-    public LayerMask groundLayer;
+    // ระยะที่เริ่มไล่
+    public float chaseDistance = 5f;
 
-    private Rigidbody2D rb;
-    private bool movingRight = true;
-
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
-    void FixedUpdate()
+    void Update()
     {
         if (player == null) return;
 
-        float distance = Vector2.Distance(transform.position, player.position);
+        // วัดระยะ
+        float distance =
+            Vector3.Distance(transform.position, player.position);
 
-        if (distance <= detectRange)
+        // ถ้าอยู่ใกล้ค่อยไล่
+        if (distance <= chaseDistance)
         {
-            MoveTowardsPlayer();
-        }
-        else
-        {
-            Patrol();
+            Vector3 targetPosition = new Vector3(
+                player.position.x,
+                transform.position.y,
+                player.position.z
+            );
+
+            // เดินตาม
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                targetPosition,
+                speed * Time.deltaTime
+            );
+
+            // หันหน้า
+            transform.LookAt(targetPosition);
         }
     }
 
-    void MoveTowardsPlayer()
+    private void OnCollisionEnter(Collision collision)
     {
-        Vector2 direction = (player.position - transform.position).normalized;
-
-        // check ground ก่อนเดิน
-        if (!IsGroundAhead())
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Flip();
-            return;
+            Debug.Log("Game Over");
+
+            SceneManager.LoadScene(
+                SceneManager.GetActiveScene().buildIndex
+            );
         }
-
-        rb.linearVelocity = new Vector2(direction.x * speed, rb.linearVelocity.y);
-
-        if (direction.x > 0 && !movingRight) Flip();
-        if (direction.x < 0 && movingRight) Flip();
-    }
-
-    void Patrol()
-    {
-        if (!IsGroundAhead())
-        {
-            Flip();
-        }
-
-        float move = movingRight ? 1 : -1;
-        rb.linearVelocity = new Vector2(move * speed, rb.linearVelocity.y);
-    }
-
-    bool IsGroundAhead()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, groundDistance, groundLayer);
-        return hit.collider != null;
-    }
-
-    void Flip()
-    {
-        movingRight = !movingRight;
-        transform.localScale = new Vector3(movingRight ? 1 : -1, 1, 1);
     }
 }
